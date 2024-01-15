@@ -2,7 +2,7 @@
 import * as React from 'react';
 // components
 import Box from '@mui/material/Box';
-import AddIcon from '@mui/icons-material/Add';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import Button from '@mui/material/Button';
 import { 
   DataGrid, 
@@ -15,8 +15,8 @@ import './index.css'
 function GridToolbar() {
   return (
     <GridToolbarContainer>
-      <Button color="primary" startIcon={<AddIcon />}>
-        Create Exchange Order
+      <Button color="primary" startIcon={<CurrencyExchangeIcon />}>
+      Exchange Currency
       </Button>
     </GridToolbarContainer>
   );
@@ -30,9 +30,10 @@ export default function Grid(props) {
   ];
 
   const columns = [
-    { field: 'from_amount', headerName: 'From (USD)', width: 150 },
-    { field: 'to_amount', headerName: 'To (PHP)', width: 150 },
+    { field: 'from_amount', headerName: 'From - USD', width: 150 },
+    { field: 'to_amount', headerName: 'To - PHP', width: 150 },
     { field: 'rate', headerName: 'Rate', width: 150 },
+    { field: 'created_at', headerName: 'Created At', width: 150 },
     { field: 'status', headerName: 'Status', width: 150 },
   ];
 
