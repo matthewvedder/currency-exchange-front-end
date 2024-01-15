@@ -1,11 +1,11 @@
 // components
-import OrderList from './views/orders/List';
+import Orders from './views/orders/';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <OrderList />
+      <Orders />
     </div>
   );
 }

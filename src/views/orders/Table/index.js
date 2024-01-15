@@ -16,7 +16,7 @@ function GridToolbar() {
   return (
     <GridToolbarContainer>
       <Button color="primary" startIcon={<CurrencyExchangeIcon />}>
-      Exchange Currency
+      Make an Exchange
       </Button>
     </GridToolbarContainer>
   );
@@ -24,10 +24,6 @@ function GridToolbar() {
 
 
 export default function Grid(props) {
-
-  const rows = [
-
-  ];
 
   const columns = [
     { field: 'from_amount', headerName: 'From - USD', width: 150 },
@@ -42,7 +38,7 @@ export default function Grid(props) {
   return (
     <Box sx={{ height: '70vh', width: '100%', marginTop: '100px', maxWidth: '767px' }}>
       <DataGrid
-        rows={rows}
+        rows={props.rows}
         columns={columns}
         loading={props.loading}
         initialState={{

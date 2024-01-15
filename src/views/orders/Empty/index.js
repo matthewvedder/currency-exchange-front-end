@@ -15,7 +15,7 @@ export default function Empty() {
       <h2>No Currency Exchange Orders</h2>
       <p>Click the button below to get started!</p>
       <Button variant='outlined'>
-        Exchange Currency
+        Make an Exchange
       </Button>
     </div>
   )
