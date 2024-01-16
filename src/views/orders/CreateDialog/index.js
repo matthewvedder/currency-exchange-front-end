@@ -14,7 +14,6 @@ import './index.css';
 
 function QuoteDialog({ open, handleClose }) {
   const [quote, setQuote] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [error, setError] = useState(null);
@@ -106,7 +105,11 @@ function QuoteDialog({ open, handleClose }) {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={submitOrder} color="primary" disabled={!quote}>
+        <Button 
+          onClick={submitOrder} 
+          color="primary" 
+          disabled={!quote || amount <= 0}
+        >
           Submit Order
         </Button>
       </DialogActions>
