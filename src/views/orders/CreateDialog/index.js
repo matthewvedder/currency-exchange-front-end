@@ -14,19 +14,23 @@ import './index.css';
 
 function QuoteDialog({ open, handleClose }) {
   const [quote, setQuote] = useState(null);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(null);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchQuoteOnMount = async () => {
+      setLoading(true)
       try {
         const response = await getQuote();
         const { data } = response;
         setQuote(data);
+        setLoading(false);
       } catch (error) {
         setError('Failed to fetch quote');
         console.error(error);
+        setLoading(false);
       }
     };
 
@@ -43,6 +47,9 @@ function QuoteDialog({ open, handleClose }) {
   }, [open]);
 
   useEffect(() => {
+    if (!amount) {
+      setConvertedAmount(null);
+    }
     if (quote && amount) {
       const converted = parseFloat(amount) * parseFloat(quote.rate);
       setConvertedAmount(converted.toFixed(2));
@@ -62,11 +69,12 @@ function QuoteDialog({ open, handleClose }) {
     try {
       const orderData = {
         quote_id: quote.id,
-        user_id: 'your_user_id', // Replace with actual user ID
+        // using env variable here because there is no auth but would normally be stored in redux state
+        user_id: process.env.REACT_APP_USER_ID,
         from_amount: amount
       };
       await createOrder(orderData);
-      handleClose(); // Close the dialog on success
+      handleClose();
     } catch (error) {
       setError('Failed to create order');
       console.error(error);
@@ -74,10 +82,10 @@ function QuoteDialog({ open, handleClose }) {
   };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose} fullWidth>
       <DialogTitle>Exchange USD to PHP</DialogTitle>
       <DialogContent>
-        {!quote && <div className='loading-quote'><CircularProgress /></div>}
+        {loading && <div className='loading-quote'><CircularProgress /></div>}
         {quote && (
           <div>
             <p>Rate: {quote.rate}</p>
@@ -91,9 +99,6 @@ function QuoteDialog({ open, handleClose }) {
               onChange={handleAmountChange}
               InputProps={{
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
-                inputProps: { 
-                  min: 0 
-                }
               }}
             />
             <p>PHP {convertedAmount}</p>

@@ -11,6 +11,7 @@ export const getQuote = async () => {
 };
 
 export const createOrder = async (orderData) => {
+  console.log('orderData', orderData);
   try {
     const response = await axios.post('/orders', orderData);
     return response.data;

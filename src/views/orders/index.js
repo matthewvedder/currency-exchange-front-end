@@ -1,6 +1,6 @@
 // libraries
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 // utils
 import firestore from '../../firebase';
 // components
@@ -22,7 +22,7 @@ const OrdersContainer = () => {
       try {
         const querySnapshot = await getDocs(collection(firestore, 'orders'));
 
-        const ordersData = querySnapshot.docs.map(doc => ((doc.data() || {}).data));
+        const ordersData = querySnapshot.docs
         setOrders(ordersData);
         setLoading(false);
       } catch (err) {
@@ -33,6 +33,27 @@ const OrdersContainer = () => {
 
     fetchOrders();
   }, []);
+
+  useEffect(() => {
+    const ordersCollectionRef = collection(firestore, 'orders');
+
+    const unsubscribe = onSnapshot(ordersCollectionRef, 
+      (querySnapshot) => {
+        const ordersData = querySnapshot.docs
+          .map(doc => ((doc.data() || {}).data));
+        setOrders(ordersData);
+        setLoading(false);
+      }, 
+      (err) => {
+        setError(err);
+        setLoading(false);
+      }
+    );
+
+    // Cleanup function to unsubscribe from the listener when the component unmounts
+    return () => unsubscribe();
+  }, []);
+
 
   if (loading) {
     return <div>Loading...</div>;
