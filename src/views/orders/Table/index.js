@@ -16,9 +16,14 @@ export default function Grid(props) {
     { field: 'from_amount', headerName: 'From - USD', width: 150 },
     { field: 'to_amount', headerName: 'To - PHP', width: 150 },
     { field: 'rate', headerName: 'Rate', width: 150 },
-    { field: 'created_at', headerName: 'Created At', width: 150 },
+    { field: 'created_at', headerName: 'Created At', type: 'dateTime', width: 200, valueGetter: (timestamp) => new Date(timestamp.value.seconds * 1000)},
     { field: 'status', headerName: 'Status', width: 150 },
   ];
+
+
+  const EmptyRows = () => {
+    return <Empty onButtonClick={props.onEmptyClick} />
+  }
 
 
   
@@ -38,7 +43,7 @@ export default function Grid(props) {
         pageSizeOptions={[20, 50, 100]}
         disableRowSelectionOnClick
         slots={{
-          noRowsOverlay: Empty
+          noRowsOverlay: EmptyRows
         }}
         sx={{
           "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {

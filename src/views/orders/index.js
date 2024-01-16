@@ -40,7 +40,7 @@ const OrdersContainer = () => {
     const unsubscribe = onSnapshot(ordersCollectionRef, 
       (querySnapshot) => {
         const ordersData = querySnapshot.docs
-          .map(doc => ((doc.data() || {}).data));
+          .map(doc => doc.data());
         setOrders(ordersData);
         setLoading(false);
       }, 
@@ -63,6 +63,8 @@ const OrdersContainer = () => {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log('orders', orders);
+
   return (
     <div className='orders'>
       <Button 
@@ -71,7 +73,7 @@ const OrdersContainer = () => {
       >
         Make an Exchange
       </Button>
-      <Table rows={orders} />
+      <Table rows={orders} onEmptyClick={() => setCreateDialogOpen(true)} />
       <CreateDialog open={createDialogOpen} handleClose={() => setCreateDialogOpen(false)} />
     </div>
   );
