@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField } from '@material-ui/core';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, CircularProgress } from '@material-ui/core';
 import { getQuote, createOrder } from '../../../api';
+import './index.css';
 
 function QuoteDialog({ open, handleClose }) {
   const [quote, setQuote] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const [convertedAmount, setConvertedAmount] = useState('');
   const [error, setError] = useState(null);
@@ -22,6 +24,13 @@ function QuoteDialog({ open, handleClose }) {
 
     if (open) {
       fetchQuoteOnMount();
+    }
+
+    if (!open) {
+      setQuote(null);
+      setAmount(0);
+      setConvertedAmount('');
+      setError(null);
     }
   }, [open]);
 
@@ -51,6 +60,7 @@ function QuoteDialog({ open, handleClose }) {
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Exchange USD to PHP</DialogTitle>
       <DialogContent>
+        {!quote && <div className='loading-quote'><CircularProgress /></div>}
         {quote && (
           <div>
             <p>Rate: {quote.rate}</p>
