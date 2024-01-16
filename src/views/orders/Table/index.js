@@ -2,26 +2,13 @@
 import * as React from 'react';
 // components
 import Box from '@mui/material/Box';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import Button from '@mui/material/Button';
 import { 
-  DataGrid, 
-  GridToolbarContainer,
+  DataGrid
 } from '@mui/x-data-grid';
 import Empty from '../Empty';
 // styles
 import './index.css'
-
-function GridToolbar() {
-  return (
-    <GridToolbarContainer>
-      <Button color="primary" startIcon={<CurrencyExchangeIcon />}>
-      Make an Exchange
-      </Button>
-    </GridToolbarContainer>
-  );
-}
-
 
 export default function Grid(props) {
 
@@ -36,7 +23,7 @@ export default function Grid(props) {
 
   
   return (
-    <Box sx={{ height: '70vh', width: '100%', marginTop: '100px', maxWidth: '767px' }}>
+    <Box sx={{ height: '70vh', width: '100%', marginTop: '10px', maxWidth: '767px' }}>
       <DataGrid
         rows={props.rows}
         columns={columns}
@@ -51,7 +38,6 @@ export default function Grid(props) {
         pageSizeOptions={[20, 50, 100]}
         disableRowSelectionOnClick
         slots={{
-          toolbar: GridToolbar,
           noRowsOverlay: Empty
         }}
         sx={{
