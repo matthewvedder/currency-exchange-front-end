@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button, TextField, CircularProgress } from '@material-ui/core';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  TextField,
+  CircularProgress,
+  InputAdornment
+} from '@material-ui/core';
 import { getQuote, createOrder } from '../../../api';
 import './index.css';
 
@@ -41,6 +50,15 @@ function QuoteDialog({ open, handleClose }) {
     }
   }, [amount, quote]);
 
+  const handleAmountChange = (event) => {
+    const { value } = event.target;
+    if (value < 0) {
+      setAmount(Math.abs(value));
+    } else {
+      setAmount(value);
+    }
+  }
+
   const submitOrder = async () => {
     try {
       const orderData = {
@@ -71,7 +89,13 @@ function QuoteDialog({ open, handleClose }) {
               type="number"
               fullWidth
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={handleAmountChange}
+              InputProps={{
+                startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                inputProps: { 
+                  min: 0 
+                }
+              }}
             />
             <p>PHP {convertedAmount}</p>
           </div>
