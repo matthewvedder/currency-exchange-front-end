@@ -1,6 +1,6 @@
 // libraries
 import React, { useState, useEffect } from 'react';
-import { collection, getDocs, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query, orderBy } from 'firebase/firestore';
 // utils
 import firestore from '../../firebase';
 // components
@@ -18,26 +18,10 @@ const OrdersContainer = () => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(firestore, 'orders'));
-
-        const ordersData = querySnapshot.docs
-        setOrders(ordersData);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
-
-    fetchOrders();
-  }, []);
-
-  useEffect(() => {
     const ordersCollectionRef = collection(firestore, 'orders');
+    const orderedQuery = query(ordersCollectionRef, orderBy('created_at', 'desc'))
 
-    const unsubscribe = onSnapshot(ordersCollectionRef, 
+    const unsubscribe = onSnapshot(orderedQuery, 
       (querySnapshot) => {
         const ordersData = querySnapshot.docs
           .map(doc => doc.data());
@@ -62,8 +46,6 @@ const OrdersContainer = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
-  console.log('orders', orders);
 
   return (
     <div className='orders'>

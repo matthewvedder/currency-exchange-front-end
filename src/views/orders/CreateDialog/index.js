@@ -71,7 +71,9 @@ function QuoteDialog({ open, handleClose }) {
         quote_id: quote.id,
         // using env variable here because there is no auth but would normally be stored in redux state
         user_id: process.env.REACT_APP_USER_ID,
-        from_amount: amount
+        from_amount: amount,
+        to_amount: convertedAmount,
+        rate: quote.rate,
       };
       await createOrder(orderData);
       handleClose();

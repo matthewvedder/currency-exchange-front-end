@@ -16,7 +16,12 @@ export default function Grid(props) {
     { field: 'from_amount', headerName: 'From - USD', width: 150 },
     { field: 'to_amount', headerName: 'To - PHP', width: 150 },
     { field: 'rate', headerName: 'Rate', width: 150 },
-    { field: 'created_at', headerName: 'Created At', type: 'dateTime', width: 200, valueGetter: (timestamp) => new Date(timestamp.value.seconds * 1000)},
+    { 
+      field: 'created_at', 
+      headerName: 'Created At', 
+      type: 'dateTime', 
+      width: 200, valueGetter: (timestamp) => new Date(timestamp.value.seconds * 1000)
+    },
     { field: 'status', headerName: 'Status', width: 150 },
   ];
 
@@ -28,7 +33,7 @@ export default function Grid(props) {
 
   
   return (
-    <Box sx={{ height: '70vh', width: '100%', marginTop: '10px', maxWidth: '767px' }}>
+    <Box sx={{ height: '70vh', width: '100%', marginTop: '10px' }}>
       <DataGrid
         rows={props.rows}
         columns={columns}
