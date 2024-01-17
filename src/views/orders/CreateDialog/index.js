@@ -103,7 +103,7 @@ function QuoteDialog({ open, handleClose }) {
                 startAdornment: <InputAdornment position="start">$</InputAdornment>,
               }}
             />
-            <p>PHP {convertedAmount}</p>
+            <p>PHP: {convertedAmount && `₱${parseFloat(convertedAmount).toLocaleString()}`}</p>
           </div>
         )}
         {error && <div style={{ color: 'red' }}>{error}</div>}

@@ -23,17 +23,21 @@ export default function Grid(props) {
     }
   }
 
+  const currencyFormatter = (value) => {
+    parseInt(value).toLocaleString()
+  }
+
   const columns = [
     { 
       field: 'from_amount', 
       headerName: 'From (USD)', 
       width: 150,
-      valueFormatter: (params) => `$${params.value}`
+      valueFormatter: (params) => `$${parseInt(params.value).toLocaleString()}`
     },
     { 
       field: 'to_amount', 
       headerName: 'To (PHP)',
-      valueFormatter: (params) => `₱${params.value}`, 
+      valueFormatter: (params) => `₱${parseInt(params.value).toLocaleString()}`, 
       width: 150 
     },
     { field: 'rate', headerName: 'Rate', width: 150 },

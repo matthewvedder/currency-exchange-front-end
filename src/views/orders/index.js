@@ -49,6 +49,7 @@ const OrdersContainer = () => {
 
   return (
     <div className='orders'>
+      <h1>Exchange US Dollars to Philippine Pesos</h1>
       <Button 
         onClick={() => setCreateDialogOpen(true)}
         startIcon={<CurrencyExchangeIcon />}
