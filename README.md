@@ -68,9 +68,17 @@ Execute the following command to run tests:
 npm test
 ```
 
-## Deployment
+## Screenshots
+![image](https://github.com/matthewvedder/currency-exchange-front-end/assets/16331910/097363e1-74ee-4c12-9341-5d60e0e99b55)
 
-Additional notes about how to deploy the application could be added here.
+![image](https://github.com/matthewvedder/currency-exchange-front-end/assets/16331910/da5291f5-61b5-4aec-baa3-8a05b57c452f)
+
+
+
+
+
+
+
 
 ## License
 
