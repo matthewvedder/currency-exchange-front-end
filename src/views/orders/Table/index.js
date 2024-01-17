@@ -24,8 +24,18 @@ export default function Grid(props) {
   }
 
   const columns = [
-    { field: 'from_amount', headerName: 'From - USD', width: 150 },
-    { field: 'to_amount', headerName: 'To - PHP', width: 150 },
+    { 
+      field: 'from_amount', 
+      headerName: 'From (USD)', 
+      width: 150,
+      valueFormatter: (params) => `$${params.value}`
+    },
+    { 
+      field: 'to_amount', 
+      headerName: 'To (PHP)',
+      valueFormatter: (params) => `₱${params.value}`, 
+      width: 150 
+    },
     { field: 'rate', headerName: 'Rate', width: 150 },
     { 
       field: 'created_at', 
